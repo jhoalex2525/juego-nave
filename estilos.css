@@ -1,0 +1,7 @@
+.tablero{
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid red;
+    width: 300px;
+    height: 300px;
+}
