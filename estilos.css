@@ -4,6 +4,7 @@
     border: 1px solid red;
     width: 300px;
     height: 300px;    
+    margin:  0 auto;
 }
 h1, h3{
     text-align: center;
@@ -16,10 +17,12 @@ h1, h3{
     background-color: yellow;
 }
 .aliens{
-    background-color: purple;
+    background-color:darkgreen;
+    border-radius: 10px;
 }
 .nave{
     background-color: blue;
+    border-radius: 20px 20px 0 0;
 }
 .explosion{
     background-color: red;
