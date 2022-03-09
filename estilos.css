@@ -1,28 +1,33 @@
+body{
+    overflow-y:hidden;
+}
 .tablero{
     display: flex;
     flex-wrap: wrap;
     border: 1px solid red;
-    width: 300px;
-    height: 300px;    
+    width: 600px;
+    height: 600px;    
     margin:  0 auto;
 }
 h1, h3{
     text-align: center;
 }
 .tablero div {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
 }
 .balas{
     background-color: yellow;
 }
 .aliens{
-    background-color:darkgreen;
-    border-radius: 10px;
+    background: no-repeat center/250% url("images/alien.png");
+    /* background-color:darkgreen;
+    border-radius: 10px; */
 }
 .nave{
-    background-color: blue;
-    border-radius: 20px 20px 0 0;
+    background: no-repeat center/75% url("images/nave.png");
+    /* background-color: blue; */
+    /* border-radius: 20px 20px 0 0; */
 }
 .explosion{
     background-color: red;
