@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded",function(){
     let posicionAliens = 0;
     let aliensMuertos = [];
     let resultado = 0;
+    let iraDerecha=true;
     let direccion = 1;
     let alienID;
 
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded",function(){
         // colocar la nave en nueva posición
         cuadrosTablero[posicionNave].classList.add("nave");  
     }   
-    
+
     document.addEventListener("keydown", moverNave); 
     
     // mover aliens a la derecha e izquierda
@@ -94,5 +95,21 @@ document.addEventListener("DOMContentLoaded",function(){
         ubicarAliens();
     }
     moverAliens();
-    alienID = setInterval(moverAliens,500)
+    alienID = setInterval(moverAliens,500);
+    // funcion pata disparar
+    function disparar(evento){
+        let balaID; //Tiempo viaje de la bala        
+        let posicionBala = posicionNave;
+        // mover la bala
+        function moverBala(){
+            cuadrosTablero[posicionBala].classList.remove("balas");
+            posicionBala -= cuadros;
+            cuadrosTablero[posicionBala].classList.add("balas");
+        }
+        switch(evento.key){
+            case "ArrowUp": balaID = setInterval(moverBala,100);
+            break;
+        }
+    }
+    document.addEventListener("keydown",disparar);
 });
