@@ -21,9 +21,11 @@ document.addEventListener("DOMContentLoaded",function(){
     // aliens.forEach(alien => cuadrosTablero[posicionAliens + alien].classList.add("aliens"));
 
     // otra forma para poner los aliens
-    function ubicarAliens(){
-        for(let index = 0; index < aliens.length; index++){
-            cuadrosTablero[aliens[index]].classList.add("aliens")
+    function ubicarAliens() {
+        for (let i = 0; i < aliens.length; i++) {
+            if (!aliensMuertos.includes(i)) {
+                cuadrosTablero[aliens[i]].classList.add("aliens");
+            }
         }
     }
 
@@ -93,9 +95,30 @@ document.addEventListener("DOMContentLoaded",function(){
             aliens[i] += direccion;
         }
         ubicarAliens();
+        // gameover
+        if (cuadrosTablero[posicionNave].classList.contains("aliens")) {
+            alert("Perdiste, juego terminado");
+            clearInterval(alienID);
+            location.reload();
+        }
+        if (aliensMuertos.length === aliens.length) {
+            alert("Felicitaciones, has ganado");
+            clearInterval(alienID);
+            location.reload();
+        }
+        
+        // for (let i = 0; i < posicionAliens.length; i++) {
+        //     if (posicionAliens.length > cuadrosTablero.length) {
+        //         alert("Perdiste, juego terminado")
+        //         clearInterval(alienID);
+        //         location.reload();
+        //     }
+        // }
     }
+
+
     moverAliens();
-    alienID = setInterval(moverAliens,500);
+    alienID = setInterval(moverAliens,100);
     // funcion pata disparar
     function disparar(evento){
         let balaID; //Tiempo viaje de la bala        
@@ -105,11 +128,26 @@ document.addEventListener("DOMContentLoaded",function(){
             cuadrosTablero[posicionBala].classList.remove("balas");
             posicionBala -= cuadros;
             cuadrosTablero[posicionBala].classList.add("balas");
+            // matar aliens
+            if(cuadrosTablero[posicionBala].classList.contains("aliens")){
+                cuadrosTablero[posicionBala].classList.remove("aliens");
+                cuadrosTablero[posicionBala].classList.remove("balas");
+                cuadrosTablero[posicionBala].classList.add("explosion");
+                // tiempo explosion
+                setTimeout(()=>cuadrosTablero[posicionBala].classList.remove("explosion"),300);
+                clearInterval(balaID);
+                // buscar la posicion del alien eliminado y guardarlo en el array aliens eliminado
+                const alienEliminado = aliens.indexOf(posicionBala);
+                aliensMuertos.push(alienEliminado);
+                resultado++;
+                resultadoAliens.textContent = resultado;
+                console.log(aliensMuertos);
+            }
         }
         switch(evento.key){
             case "ArrowUp": balaID = setInterval(moverBala,100);
             break;
         }
-    }
+    }    
     document.addEventListener("keydown",disparar);
 });
